@@ -1,0 +1,13 @@
+<resources>
+    <!-- Basic -->
+    <string name="ok">Tamam</string>
+    <string name="understand">Anladım</string>
+    <string name="warning">Uyarı</string>
+    <string name="empty">Boş</string>
+    <string name="no_connection">Bağlantı yok</string>
+    <string name="try_again">Tekrar dene</string>
+
+    <string name="flow_screen_title">Flow</string>
+    <string name="basket_screen_title">Basket</string>
+    <string name="search_placeholder">Ara..</string>
+</resources>
