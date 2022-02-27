@@ -1,0 +1,67 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+
+ApiServiceType API_SERVICE_TYPE
+
+android {
+    compileSdk ConfigData.compileSdk
+
+    defaultConfig {
+        minSdk ConfigData.minSdk
+        targetSdk ConfigData.targetSdk
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    productFlavors {
+        flavorDimensions "version"
+        locale {
+            API_SERVICE_TYPE = ApiServiceType.LOCALE
+            buildConfigField 'String', 'SERVICE_TYPE', '"Locale"'
+            buildConfigField 'String', 'BASE_URL', "\"$LOCALE_BASE_URL$LOCALE_API_PREFIX\""
+        }
+        devtest {
+            API_SERVICE_TYPE = ApiServiceType.DEV_TEST
+            buildConfigField 'String', 'SERVICE_TYPE', '"DevTest"'
+            buildConfigField 'String', 'BASE_URL', "\"$DEVTEST_BASE_URL$DEVTEST_API_PREFIX\""
+        }
+        prod {
+            API_SERVICE_TYPE = ApiServiceType.PROD
+            buildConfigField 'String', 'SERVICE_TYPE', '"Prod"'
+            buildConfigField 'String', 'BASE_URL', "\"$PROD_BASE_URL$PROD_API_PREFIX\""
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    //Kotlin
+    api BuildDependencies.kotlin
+
+    //AndroidX
+    api BuildDependencies.androidKTX
+    api BuildDependencies.appCompat
+}
+
+enum BuildType {
+    DEBUG,
+    RELEASE
+}

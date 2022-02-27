@@ -1,0 +1,99 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-parcelize'
+    id 'kotlin-kapt'
+}
+
+ApiServiceType API_SERVICE_TYPE
+
+android {
+    compileSdk 31
+
+    defaultConfig {
+        minSdk 23
+        targetSdk 31
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    productFlavors {
+        flavorDimensions "version"
+        locale {
+            API_SERVICE_TYPE = ApiServiceType.LOCALE
+        }
+        devtest {
+            API_SERVICE_TYPE = ApiServiceType.DEV_TEST
+        }
+        prod {
+            API_SERVICE_TYPE = ApiServiceType.PROD
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+//AndroidX
+    api BuildDependencies.pagination
+
+    /*Retrofit*/
+    api BuildDependencies.retrofit
+    api BuildDependencies.retrofitGson
+
+    /*OK HTTP*/
+    api BuildDependencies.okhttp
+    api BuildDependencies.okhttpInterceptor
+
+    //Coroutines
+    api BuildDependencies.coroutinesCore
+    api BuildDependencies.coroutinesAndroid
+    api BuildDependencies.coroutinesTest
+
+    //Lifecycle
+    api BuildDependencies.lifeCycleRuntime
+    api BuildDependencies.lifeCycleExtensions
+    api BuildDependencies.lifeCycleLivedata
+    api BuildDependencies.lifeCycleViewModel
+    api BuildDependencies.lifeCycleCommon
+    api BuildDependencies.lifeCycleReactiveStreams
+
+    /*Hilt*/
+    api BuildDependencies.hilt
+    api BuildDependencies.hiltNavigationCompose
+    kapt BuildDependencies.hiltCompiler
+    kapt BuildDependencies.hiltCompilerX
+
+    /*Room*/
+    api BuildDependencies.room
+    annotationProcessor BuildDependencies.roomAnnotationProcessor
+    kapt BuildDependencies.roomKapt
+    api BuildDependencies.roomKtx
+
+    /*Debug Tools*/
+    debugApi BuildDependencies.chucker
+    releaseApi BuildDependencies.chuckerNoOp
+
+    //Test
+    testApi BuildDependencies.junit
+    androidTestApi BuildDependencies.androidTestJunit
+    androidTestApi BuildDependencies.androidTestEspressoCore
+
+    //Module
+    api project(":domain")
+}

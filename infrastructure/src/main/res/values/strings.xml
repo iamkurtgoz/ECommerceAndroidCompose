@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Error -->
+    <string name="error">Beklenmeyen Durum</string>
+    <string name="error_io_exception">Bağlantı hatası! Lütfen daha sonra tekrar deneyin.</string>
+    <string name="error_connection_not_found">Bağlantı yok! Lütfen bağlantı ayarlarınızı kontrol edin.</string>
+    <string name="error_connection_timeout">Bağlantı zaman aşımına uğradı!</string>
+    <string name="error_endpoint">Bağlantı adresine erişilemiyor!</string>
+    <string name="error_nullable">Dönen cevap boş. Lütfen tekrar deneyin.</string>
+    <string name="error_unknown">İsteğinizi şuanda gerçekleştiremiyoruz.\nLütfen daha sonra tekrar deneyin!</string>
+    <string name="error_field_empty">%s boş olamaz!</string>
+    <string name="error_field_min_length">%1$s en az %2$d karakter uzunluğunda olmalı.</string>
+    <string name="error_field_length">%1$s %2$d haneli olmalı!</string>
+    <string name="error_field_format">%s doğru formatta değil!</string>
+    <string name="error_field_can_not_start_with">%1$s %2$s ile başlayamaz!</string>
+    <string name="error_passwords_do_not_match">Şifreler uyumlu değil!</string>
+    <string name="error_field_should_start_with">%1$s %2$s ile başlamalıdır!</string>
+</resources>

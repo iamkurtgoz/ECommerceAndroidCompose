@@ -1,0 +1,136 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+
+ApiServiceType API_SERVICE_TYPE
+
+android {
+    compileSdk ConfigData.compileSdk
+
+    defaultConfig {
+        applicationId ConfigData.applicationId
+        minSdk ConfigData.minSdk
+        targetSdk ConfigData.targetSdk
+        versionCode buildVersionCode()
+        versionName buildVersionName()
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary ConfigData.useSupportLibrary
+        }
+    }
+
+    signingConfigs {
+        config {
+            storeFile file(STORE_FILE)
+            storePassword STORE_PASSWORD
+            keyAlias KEY_ALIAS
+            keyPassword KEY_PASSWORD
+        }
+    }
+
+    buildTypes {
+        debug {
+            resValue "string", "app_name", getAppName(BuildType.DEBUG)
+            minifyEnabled ConfigData.minifyEnabledDebug
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        release {
+            resValue "string", "app_name", getAppName(BuildType.RELEASE)
+            signingConfig signingConfigs.config
+            minifyEnabled ConfigData.minifyEnabledRelease
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    applicationVariants.all { variant ->
+        variant.buildConfigField 'String', 'WEBSITE_ADDRESS', "\"$WEBSITE_ADDRESS\""
+    }
+
+    productFlavors {
+        flavorDimensions "version"
+        locale {
+            API_SERVICE_TYPE = ApiServiceType.LOCALE
+        }
+        devtest {
+            API_SERVICE_TYPE = ApiServiceType.DEV_TEST
+        }
+        prod {
+            API_SERVICE_TYPE = ApiServiceType.PROD
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+        useIR = true
+    }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion compose_version
+    }
+
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+}
+
+dependencies {
+    //AndroidX
+    implementation BuildDependencies.androidKTX
+    implementation BuildDependencies.materialDesign
+    implementation BuildDependencies.constraintLayout
+    implementation BuildDependencies.activityCompose
+    implementation BuildDependencies.legacySupport
+
+    //Compose
+    implementation BuildDependencies.compose
+    implementation BuildDependencies.composeFoundation
+    implementation BuildDependencies.composeMaterial
+    implementation BuildDependencies.composeToolingPreview
+    implementation BuildDependencies.composeUITooling
+    implementation BuildDependencies.composeLiveData
+    implementation BuildDependencies.composeNavigation
+    androidTestImplementation BuildDependencies.composeUITest
+    debugImplementation BuildDependencies.composeUITooling
+
+    /*Hilt*/
+    implementation BuildDependencies.hilt
+    implementation BuildDependencies.hiltNavigationCompose
+    kapt BuildDependencies.hiltCompiler
+    kapt BuildDependencies.hiltCompilerX
+
+    /*Other*/
+    implementation BuildDependencies.lottieCompose
+
+    /*Coil*/
+    implementation BuildDependencies.coil
+
+    //Module
+    implementation project(":application")
+}
+
+
+enum BuildType {
+    DEBUG,
+    RELEASE
+}
+
+static def getAppName(BuildType buildType) {
+    String APP_NAME = "ECommerceAndroid"
+    switch (buildType) {
+        case BuildType.DEBUG:
+            return APP_NAME + " - Debug"
+        case BuildType.RELEASE:
+            return APP_NAME
+    }
+}
