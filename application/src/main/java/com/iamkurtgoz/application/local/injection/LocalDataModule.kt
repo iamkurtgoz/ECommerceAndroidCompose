@@ -2,7 +2,8 @@ package com.iamkurtgoz.application.local.injection
 
 import android.content.Context
 import androidx.room.Room
-import com.iamkurtgoz.application.local.ProductCategoryDAO
+import com.iamkurtgoz.application.local.dao.ProductCategoryDAO
+import com.iamkurtgoz.application.local.dao.ProductDAO
 import com.iamkurtgoz.application.local.db.ECommerceDatabase
 import dagger.Module
 import dagger.Provides
@@ -25,7 +26,13 @@ object LocalDataModule {
 
     @Provides
     @Singleton
-    fun provideMarketDao(
+    fun provideProductCategoryDao(
         database: ECommerceDatabase
     ): ProductCategoryDAO = database.getProductCategoryDAO()
+
+    @Provides
+    @Singleton
+    fun provideProductDao(
+        database: ECommerceDatabase
+    ): ProductDAO = database.getProductDAO()
 }

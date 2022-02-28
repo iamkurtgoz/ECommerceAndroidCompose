@@ -1,4 +1,4 @@
-package com.iamkurtgoz.application.local.model
+package com.iamkurtgoz.application.local.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

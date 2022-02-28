@@ -1,7 +1,7 @@
 package com.iamkurtgoz.application.mapper
 
 import com.iamkurtgoz.domain.mapper.IMapper
-import com.iamkurtgoz.application.local.model.ProductCategoryEntity
+import com.iamkurtgoz.application.local.entity.ProductCategoryEntity
 import javax.inject.Inject
 import javax.inject.Singleton
 

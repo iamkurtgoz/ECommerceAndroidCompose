@@ -53,6 +53,29 @@ abstract class BaseViewModel(
         }.launchIn(viewModelScope)
     }
 
+    inline fun <T> Flow<BaseViewState>.sendRequestCombine(crossinline resultHandler: suspend (T) -> Unit) {
+        onEach { resultHandler.invoke(it as T) }.launchIn(viewModelScope)
+    }
+
+    inline fun <T> Flow<BaseViewState>.sendRequestCombineOnlySuccess(
+        requestType: RequestType = RequestType.FOR_PROGRESS_MANAGER,
+        crossinline resultHandler: suspend (T) -> Unit
+    ) {
+        onEach {
+            if (it.getLoadingStatus()) {
+                showLoading(requestType)
+            } else if (it.isErrorStatus()) {
+                showError(
+                    title = null,
+                    message = it.getError()?.message ?: "",
+                    requestType = requestType
+                )
+            } else if (it.getSuccessStatus()) {
+                resultHandler.invoke(it as T)
+            }
+        }.launchIn(viewModelScope)
+    }
+
     fun <T> FlowResource<T>.sendAllStates(requestType: RequestType = RequestType.FOR_PROGRESS_MANAGER) {
         when (this) {
             is FlowResource.Loading -> showLoading(requestType)
