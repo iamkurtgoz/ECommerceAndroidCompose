@@ -9,4 +9,6 @@ class ECommerceRemoteDataSource @Inject constructor(
 
     suspend fun productCategories() = apiService.productCategories()
 
+    suspend fun products(category: String) = apiService.products(category)
+
 }

@@ -1,10 +1,10 @@
-package com.iamkurtgoz.application.local
+package com.iamkurtgoz.application.local.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.iamkurtgoz.application.local.model.ProductCategoryEntity
+import com.iamkurtgoz.application.local.entity.ProductCategoryEntity
 
 @Dao
 interface ProductCategoryDAO {

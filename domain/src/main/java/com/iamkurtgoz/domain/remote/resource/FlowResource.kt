@@ -6,3 +6,11 @@ sealed class FlowResource<out D> {
     object NullObject : FlowResource<Nothing>()
     object Loading : FlowResource<Nothing>()
 }
+
+enum class FlowResourceState {
+    LOADING,
+    SUCCESS,
+    ERROR,
+    EMPTY,
+    NONE
+}

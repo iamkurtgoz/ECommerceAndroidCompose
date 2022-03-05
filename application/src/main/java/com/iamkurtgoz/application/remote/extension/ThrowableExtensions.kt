@@ -2,8 +2,8 @@ package com.iamkurtgoz.application.remote.extension
 
 import android.content.Context
 import com.iamkurtgoz.application.R
-import com.iamkurtgoz.domain.data.remote.network.exception.NoConnectivityException
-import com.iamkurtgoz.domain.data.remote.network.exception.NullableException
+import com.iamkurtgoz.domain.remote.exception.NoConnectivityException
+import com.iamkurtgoz.domain.remote.exception.NullableException
 import com.iamkurtgoz.application.model.BaseErrorResponse
 import retrofit2.HttpException
 import java.io.IOException

@@ -1,7 +1,7 @@
 package com.iamkurtgoz.application.remote.interceptor
 
 import android.app.Application
-import com.iamkurtgoz.domain.data.remote.network.exception.NoConnectivityException
+import com.iamkurtgoz.domain.remote.exception.NoConnectivityException
 import com.iamkurtgoz.domain.util.NetworkUtil
 import okhttp3.Interceptor
 import okhttp3.Response

@@ -7,8 +7,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.*
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.iamkurtgoz.domain.data.remote.network.exception.NoConnectivityException
-import com.iamkurtgoz.domain.data.remote.network.exception.NullableException
+import com.iamkurtgoz.domain.remote.exception.NoConnectivityException
+import com.iamkurtgoz.domain.remote.exception.NullableException
 import com.iamkurtgoz.domain.remote.resource.FlowResource
 import com.iamkurtgoz.application.remote.extension.getErrorMessage
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -49,6 +49,29 @@ abstract class BaseViewModel(
             when (it) {
                 is FlowResource.Success -> resultHandler.invoke(it.data)
                 else -> it.sendAllStates(requestType)
+            }
+        }.launchIn(viewModelScope)
+    }
+
+    inline fun <T> Flow<BaseViewState>.sendRequestCombine(crossinline resultHandler: suspend (T) -> Unit) {
+        onEach { resultHandler.invoke(it as T) }.launchIn(viewModelScope)
+    }
+
+    inline fun <T> Flow<BaseViewState>.sendRequestCombineOnlySuccess(
+        requestType: RequestType = RequestType.FOR_PROGRESS_MANAGER,
+        crossinline resultHandler: suspend (T) -> Unit
+    ) {
+        onEach {
+            if (it.getLoadingStatus()) {
+                showLoading(requestType)
+            } else if (it.isErrorStatus()) {
+                showError(
+                    title = null,
+                    message = it.getError()?.message ?: "",
+                    requestType = requestType
+                )
+            } else if (it.getSuccessStatus()) {
+                resultHandler.invoke(it as T)
             }
         }.launchIn(viewModelScope)
     }

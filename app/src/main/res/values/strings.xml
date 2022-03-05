@@ -10,4 +10,6 @@
     <string name="flow_screen_title">Flow</string>
     <string name="basket_screen_title">Basket</string>
     <string name="search_placeholder">Ara..</string>
+    <string name="favorites">Favorites</string>
+
 </resources>
