@@ -17,6 +17,7 @@ class MapperProductRemoteToModel @Inject constructor() : IMapper<ProductResponse
         price = model.price,
         title = model.title,
         rate = model.rating?.rate,
+        isFavorite = false
     )
 }
 
@@ -30,6 +31,7 @@ class MapperProductRemoteToLocale @Inject constructor() : IMapper<ProductRespons
         price = model.price ?: 0.0,
         title = model.title ?: "",
         rate = model.rating?.rate ?: 0.0,
+        isFavorite = false
     )
 }
 
@@ -42,6 +44,7 @@ class MapperProductLocaleToModel @Inject constructor() : IMapper<ProductEntity, 
         image = model.image,
         price = model.price,
         title = model.title,
-        rate = model.rate
+        rate = model.rate,
+        isFavorite = model.isFavorite
     )
 }

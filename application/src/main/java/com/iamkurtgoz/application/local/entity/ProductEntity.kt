@@ -12,5 +12,6 @@ data class ProductEntity(
     @ColumnInfo(name = "image") val image: String = "",
     @ColumnInfo(name = "price") val price: Double = 0.0,
     @ColumnInfo(name = "title") val title: String = "",
-    @ColumnInfo(name = "rate") val rate: Double = 0.0
+    @ColumnInfo(name = "rate") val rate: Double = 0.0,
+    @ColumnInfo(name = "isFavorite") val isFavorite: Boolean = false
 )

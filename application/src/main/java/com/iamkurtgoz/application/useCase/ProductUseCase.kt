@@ -13,6 +13,6 @@ class ProductUseCase @Inject constructor(
     private val repository: ECommerceRepository
 ): IUseCase<String, Flow<FlowResource<List<ProductModel>>>> {
 
-    override fun invoke(params: String?): Flow<FlowResource<List<ProductModel>>> = repository.products(params ?: "")
+    override fun invoke(params: String): Flow<FlowResource<List<ProductModel>>> = repository.products(params)
 
 }

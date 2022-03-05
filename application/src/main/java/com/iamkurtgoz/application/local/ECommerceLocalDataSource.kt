@@ -20,4 +20,10 @@ class ECommerceLocalDataSource @Inject constructor(
     suspend fun insertProduct(entity: ProductEntity) = productDAO.insert(entity)
 
     suspend fun listProduct(category: String) = productDAO.list(category)
+
+    suspend fun getProduct(id: Int) = productDAO.get(id)
+
+    suspend fun isFavoriteProduct(id: Int) = productDAO.isFavorite(id)
+
+    suspend fun updateProduct(entity: ProductEntity) = productDAO.update(entity)
 }

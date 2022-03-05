@@ -7,5 +7,6 @@ data class ProductModel(
     val image: String?,
     val price: Double?,
     val title: String?,
-    val rate: Double?
+    val rate: Double?,
+    var isFavorite: Boolean?
 )
