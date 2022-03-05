@@ -1,7 +1,7 @@
 ## E-Commerce App
 Basic E-commerce application
 
-## Tech stack and whys 🏗
+## Tech stack
 * [Kotlin](https://kotlinlang.org/)
 * [MVVM Architecture](https://developer.android.com/jetpack/guide)
 * [Dagger Hilt](https://dagger.dev/hilt/)
