@@ -7,8 +7,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.*
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.iamkurtgoz.domain.data.remote.network.exception.NoConnectivityException
-import com.iamkurtgoz.domain.data.remote.network.exception.NullableException
+import com.iamkurtgoz.domain.remote.exception.NoConnectivityException
+import com.iamkurtgoz.domain.remote.exception.NullableException
 import com.iamkurtgoz.domain.remote.resource.FlowResource
 import com.iamkurtgoz.application.remote.extension.getErrorMessage
 import dagger.hilt.android.qualifiers.ApplicationContext

@@ -1,4 +1,4 @@
-package com.iamkurtgoz.domain.data.remote.network.exception
+package com.iamkurtgoz.domain.remote.exception
 
 import java.io.IOException
 
