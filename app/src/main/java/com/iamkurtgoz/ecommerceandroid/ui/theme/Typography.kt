@@ -89,5 +89,6 @@ val typography = Typography(
 )
 
 val boldTitleFont = customFont(fontWeight = FontWeight.Bold, size = 20.sp)
+val productBoldTitleFont = customFont(fontWeight = FontWeight.Bold, size = 16.sp)
 
 fun customFont(family: FontFamily = nunitoSansDisplay, fontWeight: FontWeight = FontWeight.Normal, size: TextUnit = 12.sp): TextStyle = TextStyle(fontFamily = family, fontWeight = fontWeight, fontSize = size)

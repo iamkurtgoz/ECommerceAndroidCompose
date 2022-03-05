@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material.Card
@@ -20,12 +21,14 @@ import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import com.iamkurtgoz.ecommerceandroid.R
 import com.iamkurtgoz.ecommerceandroid.ui.components.CustomBoldTitleText
+import com.iamkurtgoz.ecommerceandroid.ui.components.CustomProductCard
 import com.iamkurtgoz.ecommerceandroid.ui.components.ProgressManager
 import com.iamkurtgoz.ecommerceandroid.ui.components.SearchView
 import com.iamkurtgoz.ecommerceandroid.ui.height
 import com.iamkurtgoz.ecommerceandroid.ui.size
 import com.iamkurtgoz.ecommerceandroid.ui.theme.screenWidth
 import com.iamkurtgoz.ecommerceandroid.ui.theme.spacing
+import com.iamkurtgoz.ecommerceandroid.ui.width
 
 @Composable
 fun FlowScreenView(
@@ -55,72 +58,106 @@ fun FlowScreenView(
             }
 
             item {
-                CustomBoldTitleText(title = viewModel.getElectronicsTitle().uppercase())
+                CustomBoldTitleText(
+                    title = viewModel.getElectronicsTitle().uppercase(),
+                    modifier = Modifier
+                        .padding(horizontal = MaterialTheme.spacing.medium)
+                        .padding(top = MaterialTheme.spacing.extraSmall)
+                )
             }
 
             item {
                 LazyRow {
-                    items(electronicsList.size) {
-                        Card(
-                            elevation = 4.dp,
-                            modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
-                                .size(MaterialTheme.screenWidth * 0.5)
-                        ) {
-                            Image(painter = rememberImagePainter(electronicsList[it].image), contentDescription = null)
+                    with(electronicsList) {
+                        items(size) {
+                            val productModel = get(it)
+                            val isLast = it == size.minus(1)
+                            println(productModel.isFavorite)
+                            CustomProductCard(
+                                productModel = productModel,
+                                modifier = Modifier.padding(top = MaterialTheme.spacing.small)
+                                    .padding(end = if (isLast) MaterialTheme.spacing.medium else MaterialTheme.spacing.default),
+                                onFavoriteClicked = { model -> viewModel.setFavorite(model) }
+                            )
                         }
                     }
                 }
             }
 
             item {
-                CustomBoldTitleText(title = viewModel.getJeweleryTitle().uppercase())
+                CustomBoldTitleText(
+                    title = viewModel.getJeweleryTitle().uppercase(),
+                    modifier = Modifier
+                        .padding(horizontal = MaterialTheme.spacing.medium)
+                        .padding(top = MaterialTheme.spacing.small)
+                )
             }
 
             item {
                 LazyRow {
-                    items(jeweleryList.size) {
-                        Card(
-                            elevation = 4.dp,
-                            modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
-                                .size(MaterialTheme.screenWidth * 0.5)
-                        ) {
-                            Image(painter = rememberImagePainter(jeweleryList[it].image), contentDescription = null)
+                    with(jeweleryList) {
+                        items(size) {
+                            val productModel = get(it)
+                            val isLast = it == size.minus(1)
+                            CustomProductCard(
+                                productModel = productModel,
+                                modifier = Modifier.padding(top = MaterialTheme.spacing.small)
+                                    .padding(end = if (isLast) MaterialTheme.spacing.medium else MaterialTheme.spacing.default),
+                                onFavoriteClicked = { model -> viewModel.setFavorite(model) }
+                            )
                         }
                     }
                 }
             }
 
             item {
-                CustomBoldTitleText(title = viewModel.getMenClothingTitle().uppercase())
+                CustomBoldTitleText(
+                    title = viewModel.getMenClothingTitle().uppercase(),
+                    modifier = Modifier
+                        .padding(horizontal = MaterialTheme.spacing.medium)
+                        .padding(top = MaterialTheme.spacing.small)
+                )
             }
 
             item {
                 LazyRow {
-                    items(menClothingList.size) {
-                        Card(
-                            elevation = 4.dp,
-                            modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
-                                .size(MaterialTheme.screenWidth * 0.5)
-                        ) {
-                            Image(painter = rememberImagePainter(menClothingList[it].image), contentDescription = null)
+                    with(menClothingList) {
+                        items(size) {
+                            val productModel = get(it)
+                            val isLast = it == size.minus(1)
+                            CustomProductCard(
+                                productModel = productModel,
+                                modifier = Modifier.padding(top = MaterialTheme.spacing.small)
+                                    .padding(end = if (isLast) MaterialTheme.spacing.medium else MaterialTheme.spacing.default),
+                                onFavoriteClicked = { model -> viewModel.setFavorite(model) }
+                            )
                         }
                     }
                 }
             }
 
             item {
-                CustomBoldTitleText(title = viewModel.getWomenClothingTitle().uppercase())
+                CustomBoldTitleText(
+                    title = viewModel.getWomenClothingTitle().uppercase(),
+                    modifier = Modifier
+                        .padding(horizontal = MaterialTheme.spacing.medium)
+                        .padding(top = MaterialTheme.spacing.small)
+                )
             }
 
             item {
                 LazyRow {
-                    items(womenClothingList.size) {
-                        Card(
-                            elevation = 4.dp,
-                            modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
-                                .size(MaterialTheme.screenWidth * 0.5)
-                        ) {
-                            Image(painter = rememberImagePainter(womenClothingList[it].image), contentDescription = null)
+                    with(womenClothingList) {
+                        items(size) {
+                            val productModel = get(it)
+                            val isLast = it == size.minus(1)
+                            CustomProductCard(
+                                productModel = productModel,
+                                modifier = Modifier.padding(top = MaterialTheme.spacing.small)
+                                    .padding(end = if (isLast) MaterialTheme.spacing.medium else MaterialTheme.spacing.default)
+                                    .padding(bottom = MaterialTheme.spacing.small),
+                                onFavoriteClicked = { model -> viewModel.setFavorite(model) }
+                            )
                         }
                     }
                 }

@@ -5,23 +5,31 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.lifecycle.viewModelScope
 import com.iamkurtgoz.application.base.BaseViewModel
 import com.iamkurtgoz.application.base.RequestType
+import com.iamkurtgoz.application.extensions.getError
+import com.iamkurtgoz.application.extensions.getLoading
+import com.iamkurtgoz.application.extensions.getSuccess
+import com.iamkurtgoz.application.local.ECommerceLocalDataSource
 import com.iamkurtgoz.application.model.sub.ProductModel
 import com.iamkurtgoz.application.useCase.ProductCategoriesUseCase
+import com.iamkurtgoz.application.useCase.ProductFavoriteUseCase
 import com.iamkurtgoz.application.useCase.ProductUseCase
 import com.iamkurtgoz.ecommerceandroid.ui.home.flow.state.FlowState
 import com.iamkurtgoz.ecommerceandroid.ui.home.flow.state.FlowViewState
 import com.iamkurtgoz.ecommerceandroid.ui.home.flow.state.flowPageCombiner
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class FlowViewModel @Inject constructor(
     application: Application,
     private val productCategoriesUseCase: ProductCategoriesUseCase,
-    private val productUseCase: ProductUseCase
+    private val productUseCase: ProductUseCase,
+    private val productFavoriteUseCase: ProductFavoriteUseCase
 ) : BaseViewModel(application) {
 
     private val _state: MutableState<FlowState> = mutableStateOf(FlowState.None)
@@ -83,6 +91,34 @@ class FlowViewModel @Inject constructor(
                 _womenClothingListState.value = it.getDataWomenClothing() ?: emptyList()
                 showContent()
             }
+        }
+    }
+
+    fun setFavorite(productModel: ProductModel) = viewModelScope.launch {
+        productModel.id?.let { id ->
+            productFavoriteUseCase(id).sendRequest { it ->
+                it.getLoading { showLoading(RequestType.FOR_DIALOG) }
+                it.getSuccess {
+                    updateModel(it)
+                    showContent()
+                }
+                it.sendAllStates(RequestType.FOR_DIALOG)
+            }
+        }
+    }
+
+    private fun updateModel(productModel: ProductModel) {
+        if (_electronicsListState.value.any { it.id == productModel.id }){
+            _electronicsListState.value = _electronicsListState.value.map { if (it.id == productModel.id) productModel else it }
+        }
+        if (_jeweleryListState.value.any { it.id == productModel.id }){
+            _jeweleryListState.value = _jeweleryListState.value.map { if (it.id == productModel.id) productModel else it }
+        }
+        if (_menClothingListState.value.any { it.id == productModel.id }){
+            _menClothingListState.value = _menClothingListState.value.map { if (it.id == productModel.id) productModel else it }
+        }
+        if (_womenClothingListState.value.any { it.id == productModel.id }){
+            _womenClothingListState.value = _womenClothingListState.value.map { if (it.id == productModel.id) productModel else it }
         }
     }
 
