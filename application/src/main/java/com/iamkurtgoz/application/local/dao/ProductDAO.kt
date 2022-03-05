@@ -16,6 +16,9 @@ interface ProductDAO {
     @Query("SELECT * FROM productEntity WHERE id = :id")
     suspend fun get(id: Int): ProductEntity?
 
+    @Query("SELECT * FROM productEntity WHERE isFavorite = 1")
+    suspend fun getFavorites(): List<ProductEntity>
+
     @Query("SELECT COUNT(*) FROM productEntity WHERE id = :id AND isFavorite = 1")
     suspend fun isFavorite(id: Int): Int
 

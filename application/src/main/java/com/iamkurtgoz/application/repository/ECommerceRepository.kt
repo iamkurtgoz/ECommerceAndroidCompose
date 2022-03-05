@@ -11,5 +11,7 @@ interface ECommerceRepository {
 
     fun products(category: String): Flow<FlowResource<List<ProductModel>>>
 
+    fun getFavorites(): Flow<FlowResource<List<ProductModel>>>
+
     fun productFavorite(id: Int): Flow<FlowResource<ProductModel>>
 }

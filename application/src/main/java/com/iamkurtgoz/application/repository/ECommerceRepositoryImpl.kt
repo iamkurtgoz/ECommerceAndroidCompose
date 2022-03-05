@@ -59,6 +59,12 @@ class ECommerceRepositoryImpl @Inject constructor(
         }
     }
 
+    override fun getFavorites(): Flow<FlowResource<List<ProductModel>>> {
+        return prepare { localDataSource.getFavorites() }.mapForFlow {
+            it.map { mapperProductLocalToModel.mapToResponse(it) }
+        }
+    }
+
     override fun productFavorite(id: Int): Flow<FlowResource<ProductModel>> {
         return prepare { localDataSource.getProduct(id) }.mapForFlow {
             if (it.isNull()) throw NullableException()
@@ -67,4 +73,6 @@ class ECommerceRepositoryImpl @Inject constructor(
             mapperProductLocalToModel.mapToResponse(productModel)
         }
     }
+
+
 }
