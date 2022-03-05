@@ -10,13 +10,12 @@ import com.iamkurtgoz.ecommerceandroid.ui.theme.spacing
 
 @Composable
 fun CustomBoldTitleText(
-    title: String
+    title: String,
+    modifier: Modifier = Modifier
 ) {
     Text(
         text = title,
-        modifier = Modifier
-            .padding(horizontal = MaterialTheme.spacing.medium)
-            .padding(top = MaterialTheme.spacing.extraSmall),
+        modifier = modifier,
         style = boldTitleFont
     )
 }
